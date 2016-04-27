@@ -1,0 +1,340 @@
+Last login: Wed Apr 27 13:35:01 on ttys000
+jankz:~ jankz$ redis-cli
+127.0.0.1:6379> ping
+PONG
+127.0.0.1:6379> SET test 'This is jankz test'
+OK
+127.0.0.1:6379> GET test
+"This is jankz test"
+127.0.0.1:6379> DBSIZE
+(integer) 1
+127.0.0.1:6379> SET test2 'Maizi'
+OK
+127.0.0.1:6379> GET test2
+"Maizi"
+127.0.0.1:6379> GETERROR
+(error) ERR unknown command 'GETERROR'
+127.0.0.1:6379> KEYS *
+1) "test"
+2) "test2"
+127.0.0.1:6379> VALUES *
+(error) ERR unknown command 'VALUES'
+127.0.0.1:6379> VALUE
+(error) ERR unknown command 'VALUE'
+127.0.0.1:6379> CONFIG GET port
+1) "port"
+2) "6379"
+127.0.0.1:6379> CONFIG GET loglevel
+1) "loglevel"
+2) "notice"
+127.0.0.1:6379> SET testStr  = 'jankz'
+(error) ERR syntax error
+127.0.0.1:6379> SET testStr 'jankz'
+OK
+127.0.0.1:6379> GET testStr
+"jankz"
+127.0.0.1:6379> SET testStr 'jankz1'
+OK
+127.0.0.1:6379> GET testStr
+"jankz1"
+127.0.0.1:6379> LPUSH testList1 a b c
+(integer) 3
+127.0.0.1:6379> GET testList1
+(error) WRONGTYPE Operation against a key holding the wrong kind of value
+127.0.0.1:6379> SET testStr2 'maiziedu'
+OK
+127.0.0.1:6379> GETRANGE testStr2 0 4 
+"maizi"
+127.0.0.1:6379> GETRANGE testStr2 0 -3
+"maizie"
+127.0.0.1:6379> GETRANGE testStr2 -4 -2
+"ied"
+127.0.0.1:6379> GETRANGE testStr2 0 1000
+"maiziedu"
+127.0.0.1:6379> GETRANGE testStr2 -4 2
+""
+127.0.0.1:6379> SET testStr3 'King'
+OK
+127.0.0.1:6379> GET testStr3
+"King"
+127.0.0.1:6379> SET testStr3 'Queen'
+OK
+127.0.0.1:6379> GETSET testStr3 'King'
+"Queen"
+127.0.0.1:6379> STRLEN testStr3
+(integer) 4
+127.0.0.1:6379> SET testStr9 'Hello Jankz'
+OK
+127.0.0.1:6379> GET testStr9
+"Hello Jankz"
+127.0.0.1:6379> SETRANGE testStr9 6 'Queen'
+(integer) 11
+127.0.0.1:6379> GET testStr9
+"Hello Queen"
+127.0.0.1:6379> SETRANGE testStr10 6 'Jankz'
+(integer) 11
+127.0.0.1:6379> GET testStr10
+"\x00\x00\x00\x00\x00\x00Jankz"
+127.0.0.1:6379> SETNX testStr10 'ajax'
+(integer) 0
+127.0.0.1:6379> SETNX testStr11 'ajax'
+(integer) 1
+127.0.0.1:6379> KEYS *
+1) "testStr3"
+2) "testList1"
+3) "testStr10"
+4) "testStr2"
+5) "test"
+6) "testStr"
+7) "test2"
+8) "testStr9"
+9) "testStr11"
+127.0.0.1:6379> SET test16 'THIS IS' EX 100
+OK
+127.0.0.1:6379> TTL test16
+(integer) 95
+127.0.0.1:6379> TTL test16
+(integer) 93
+127.0.0.1:6379> TTL test16
+(integer) 92
+127.0.0.1:6379> SET test17 'THIS IS TEST17' PX 2000
+OK
+127.0.0.1:6379> TTL test17
+(integer) -2
+127.0.0.1:6379> GET test17
+(nil)
+127.0.0.1:6379> SET test18 'THIS IS TEST18' NX
+OK
+127.0.0.1:6379> GET test18
+"THIS IS TEST18"
+127.0.0.1:6379> SET test180 'THIS IS TEST180' XX
+(nil)
+127.0.0.1:6379> SET counter =1
+OK
+127.0.0.1:6379> INCR counter
+(error) ERR value is not an integer or out of range
+127.0.0.1:6379> GET counter
+"=1"
+127.0.0.1:6379> SET counter 1
+OK
+127.0.0.1:6379> GET counter
+"1"
+127.0.0.1:6379> INCR counter
+(integer) 2
+127.0.0.1:6379> INCR counter
+(integer) 3
+127.0.0.1:6379> INCR counter
+(integer) 4
+127.0.0.1:6379> GET counter
+"4"
+127.0.0.1:6379> SET counter2 10
+OK
+127.0.0.1:6379> INCR BY counter2 10
+(error) ERR wrong number of arguments for 'incr' command
+127.0.0.1:6379> INCRBY counter2 10
+(integer) 20
+127.0.0.1:6379>  SET float1 = 4.2
+(error) ERR syntax error
+127.0.0.1:6379>  SET float1 4.2
+OK
+127.0.0.1:6379> INCRBYFLOAT float1 3.4
+"7.6"
+127.0.0.1:6379> DECR counter2
+(integer) 19
+127.0.0.1:6379> DECRBY counter2 12 
+(integer) 7
+127.0.0.1:6379> keys *
+ 1) "testStr3"
+ 2) "testList1"
+ 3) "testStr10"
+ 4) "test18"
+ 5) "testStr2"
+ 6) "test"
+ 7) "testStr"
+ 8) "counter2"
+ 9) "test2"
+10) "testStr9"
+11) "testStr11"
+12) "counter"
+13) "float1"
+127.0.0.1:6379> APPEND testStr11 'edu'
+(integer) 7
+127.0.0.1:6379> 
+127.0.0.1:6379> GET testStr11
+"ajaxedu"
+127.0.0.1:6379> APPEND noExistsTest 'ajax'
+(integer) 4
+127.0.0.1:6379> GET noExistsTest
+"ajax"
+127.0.0.1:6379> HSET userInfo1 username 'king'
+(integer) 1
+127.0.0.1:6379> HSET userInfo1 password '123456'
+(integer) 1
+127.0.0.1:6379> HSET userInfo1 email 'jankz@jankz.com'
+(integer) 1
+127.0.0.1:6379> EXISTS userInfo1
+(integer) 1
+127.0.0.1:6379> HGET userInfo1 username
+"king"
+127.0.0.1:6379> HGET userInfo1 password
+"123456"
+127.0.0.1:6379> HGET userInfo1 email
+"jankz@jankz.com"
+127.0.0.1:6379> HSETNX testhash1 test 'a'
+(integer) 1
+127.0.0.1:6379> HSETNX testhash1 test '111'
+(integer) 0
+127.0.0.1:6379> HGET testhash1
+(error) ERR wrong number of arguments for 'hget' command
+127.0.0.1:6379> HGET testhash1 test
+"a"
+127.0.0.1:6379> HMSET userInfo2 username 'jankz' nickname 'jz' password '123456' email 'jankz@jankz.com'
+OK
+127.0.0.1:6379> HMGET userInfo2 username nickname password email
+1) "jankz"
+2) "jz"
+3) "123456"
+4) "jankz@jankz.com"
+127.0.0.1:6379> HMGET userInfo3 a b c
+1) (nil)
+2) (nil)
+3) (nil)
+127.0.0.1:6379> HGETALL userInfo2
+1) "username"
+2) "jankz"
+3) "nickname"
+4) "jz"
+5) "password"
+6) "123456"
+7) "email"
+8) "jankz@jankz.com"
+127.0.0.1:6379> HKEYS userInfo2
+1) "username"
+2) "nickname"
+3) "password"
+4) "email"
+127.0.0.1:6379> HVALS userInfo2
+1) "jankz"
+2) "jz"
+3) "123456"
+4) "jankz@jankz.com"
+127.0.0.1:6379> HLEN userInfo2
+(integer) 4
+127.0.0.1:6379> HSET userInfo3 age 12
+(integer) 1
+127.0.0.1:6379> HINCRBY userInfo3 age 10
+(integer) 22
+127.0.0.1:6379> HGET userInfo3 age
+"22"
+127.0.0.1:6379> HSET userInfo3 salary 1200
+(integer) 1
+127.0.0.1:6379> HINCRBYFLOAT userInfo3 salary 10.11
+"1210.10999999999999999"
+127.0.0.1:6379> HDEL userInfo2 username password
+(integer) 2
+127.0.0.1:6379> GETALL userInfo2
+(error) ERR unknown command 'GETALL'
+127.0.0.1:6379> HGETALL userInfo2
+1) "nickname"
+2) "jz"
+3) "email"
+4) "jankz@jankz.com"
+127.0.0.1:6379> TYPE userInfo2
+hash
+127.0.0.1:6379> SET cache_page 'http://jzopen.com'
+OK
+127.0.0.1:6379> EXPIRE cache_page 100
+(integer) 1
+127.0.0.1:6379> TTL cache_page
+(integer) 91
+127.0.0.1:6379> TTL cache_page
+(integer) 90
+127.0.0.1:6379> TTL cache_page
+(integer) 89
+127.0.0.1:6379> TTL cache_page
+(integer) 88
+127.0.0.1:6379> TTL cache_page
+(integer) 85
+127.0.0.1:6379> SET cache 'testCache'
+OK
+127.0.0.1:6379> EXPIRE cache 100
+(integer) 1
+127.0.0.1:6379> TTL cache
+(integer) 94
+127.0.0.1:6379> TTL cache
+(integer) 94
+127.0.0.1:6379> PERSIST cache
+(integer) 1
+127.0.0.1:6379> TTL cache
+(integer) -1
+127.0.0.1:6379> PERSIST cache
+(integer) 0
+127.0.0.1:6379> DEL CACHE
+(integer) 0
+127.0.0.1:6379> DEL ONE
+(integer) 0
+127.0.0.1:6379> DEL cache
+(integer) 1
+127.0.0.1:6379> RANDOMKEY
+"testStr11"
+127.0.0.1:6379> RANDOMKEY
+"testStr"
+127.0.0.1:6379> RANDOMKEY
+"testStr"
+127.0.0.1:6379> RANDOMKEY
+"counter2"
+127.0.0.1:6379> RANDOMKEY
+"testList1"
+127.0.0.1:6379> SET testRename1 'rename1'
+OK
+127.0.0.1:6379> RENAME testRename1 testRename2
+OK
+127.0.0.1:6379> RENAME testRename2 testRename2
+(error) ERR source and destination objects are the same
+127.0.0.1:6379> RENAME testRename2 testStr11
+OK
+127.0.0.1:6379> GET testStr11
+"rename1"
+127.0.0.1:6379> SET testRename 'test'
+OK
+127.0.0.1:6379> RENAMENX testRename Six
+(integer) 1
+127.0.0.1:6379> GET SIX
+(nil)
+127.0.0.1:6379> GET Six
+"test"
+127.0.0.1:6379>  SET testDump 'this is jankz'
+OK
+127.0.0.1:6379>  DUMP testDump
+"\x00\rthis is jankz\x06\x00\x9f\x7f\x8a\xee\x10\xb3a("
+127.0.0.1:6379> RESTORE testDump1 0 "\x00\rthis is jankz\x06\x00\x9f\x7f\x8a\xee\x10\xb3a("
+OK
+127.0.0.1:6379> GET testDump1
+"this is jankz"
+127.0.0.1:6379> SELECT 0
+OK
+127.0.0.1:6379> SET testMove 'aaa'
+OK
+127.0.0.1:6379> GET testMove
+"aaa"
+127.0.0.1:6379> SELECT 1
+OK
+127.0.0.1:6379[1]> GET testMove
+(nil)
+127.0.0.1:6379[1]> SELECT 0
+OK
+127.0.0.1:6379> MOVE testMove 1
+(integer) 1
+127.0.0.1:6379> SELECT 1
+OK
+127.0.0.1:6379[1]> GET testMove
+"aaa"
+127.0.0.1:6379[1]> SELECT 0
+OK
+127.0.0.1:6379> SET testMove 'bbb'
+OK
+127.0.0.1:6379> SELECT 1
+OK
+127.0.0.1:6379[1]> MOVE testMove 0
+(integer) 0
+127.0.0.1:6379[1]> 
