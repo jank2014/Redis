@@ -1,0 +1,1222 @@
+Last login: Wed Apr 27 13:35:01 on ttys000
+jankz:~ jankz$ redis-cli
+127.0.0.1:6379> ping
+PONG
+127.0.0.1:6379> SET test 'This is jankz test'
+OK
+127.0.0.1:6379> GET test
+"This is jankz test"
+127.0.0.1:6379> DBSIZE
+(integer) 1
+127.0.0.1:6379> SET test2 'Maizi'
+OK
+127.0.0.1:6379> GET test2
+"Maizi"
+127.0.0.1:6379> GETERROR
+(error) ERR unknown command 'GETERROR'
+127.0.0.1:6379> KEYS *
+1) "test"
+2) "test2"
+127.0.0.1:6379> VALUES *
+(error) ERR unknown command 'VALUES'
+127.0.0.1:6379> VALUE
+(error) ERR unknown command 'VALUE'
+127.0.0.1:6379> CONFIG GET port
+1) "port"
+2) "6379"
+127.0.0.1:6379> CONFIG GET loglevel
+1) "loglevel"
+2) "notice"
+127.0.0.1:6379> SET testStr  = 'jankz'
+(error) ERR syntax error
+127.0.0.1:6379> SET testStr 'jankz'
+OK
+127.0.0.1:6379> GET testStr
+"jankz"
+127.0.0.1:6379> SET testStr 'jankz1'
+OK
+127.0.0.1:6379> GET testStr
+"jankz1"
+127.0.0.1:6379> LPUSH testList1 a b c
+(integer) 3
+127.0.0.1:6379> GET testList1
+(error) WRONGTYPE Operation against a key holding the wrong kind of value
+127.0.0.1:6379> SET testStr2 'maiziedu'
+OK
+127.0.0.1:6379> GETRANGE testStr2 0 4 
+"maizi"
+127.0.0.1:6379> GETRANGE testStr2 0 -3
+"maizie"
+127.0.0.1:6379> GETRANGE testStr2 -4 -2
+"ied"
+127.0.0.1:6379> GETRANGE testStr2 0 1000
+"maiziedu"
+127.0.0.1:6379> GETRANGE testStr2 -4 2
+""
+127.0.0.1:6379> SET testStr3 'King'
+OK
+127.0.0.1:6379> GET testStr3
+"King"
+127.0.0.1:6379> SET testStr3 'Queen'
+OK
+127.0.0.1:6379> GETSET testStr3 'King'
+"Queen"
+127.0.0.1:6379> STRLEN testStr3
+(integer) 4
+127.0.0.1:6379> SET testStr9 'Hello Jankz'
+OK
+127.0.0.1:6379> GET testStr9
+"Hello Jankz"
+127.0.0.1:6379> SETRANGE testStr9 6 'Queen'
+(integer) 11
+127.0.0.1:6379> GET testStr9
+"Hello Queen"
+127.0.0.1:6379> SETRANGE testStr10 6 'Jankz'
+(integer) 11
+127.0.0.1:6379> GET testStr10
+"\x00\x00\x00\x00\x00\x00Jankz"
+127.0.0.1:6379> SETNX testStr10 'ajax'
+(integer) 0
+127.0.0.1:6379> SETNX testStr11 'ajax'
+(integer) 1
+127.0.0.1:6379> KEYS *
+1) "testStr3"
+2) "testList1"
+3) "testStr10"
+4) "testStr2"
+5) "test"
+6) "testStr"
+7) "test2"
+8) "testStr9"
+9) "testStr11"
+127.0.0.1:6379> SET test16 'THIS IS' EX 100
+OK
+127.0.0.1:6379> TTL test16
+(integer) 95
+127.0.0.1:6379> TTL test16
+(integer) 93
+127.0.0.1:6379> TTL test16
+(integer) 92
+127.0.0.1:6379> SET test17 'THIS IS TEST17' PX 2000
+OK
+127.0.0.1:6379> TTL test17
+(integer) -2
+127.0.0.1:6379> GET test17
+(nil)
+127.0.0.1:6379> SET test18 'THIS IS TEST18' NX
+OK
+127.0.0.1:6379> GET test18
+"THIS IS TEST18"
+127.0.0.1:6379> SET test180 'THIS IS TEST180' XX
+(nil)
+127.0.0.1:6379> SET counter =1
+OK
+127.0.0.1:6379> INCR counter
+(error) ERR value is not an integer or out of range
+127.0.0.1:6379> GET counter
+"=1"
+127.0.0.1:6379> SET counter 1
+OK
+127.0.0.1:6379> GET counter
+"1"
+127.0.0.1:6379> INCR counter
+(integer) 2
+127.0.0.1:6379> INCR counter
+(integer) 3
+127.0.0.1:6379> INCR counter
+(integer) 4
+127.0.0.1:6379> GET counter
+"4"
+127.0.0.1:6379> SET counter2 10
+OK
+127.0.0.1:6379> INCR BY counter2 10
+(error) ERR wrong number of arguments for 'incr' command
+127.0.0.1:6379> INCRBY counter2 10
+(integer) 20
+127.0.0.1:6379>  SET float1 = 4.2
+(error) ERR syntax error
+127.0.0.1:6379>  SET float1 4.2
+OK
+127.0.0.1:6379> INCRBYFLOAT float1 3.4
+"7.6"
+127.0.0.1:6379> DECR counter2
+(integer) 19
+127.0.0.1:6379> DECRBY counter2 12 
+(integer) 7
+127.0.0.1:6379> keys *
+ 1) "testStr3"
+ 2) "testList1"
+ 3) "testStr10"
+ 4) "test18"
+ 5) "testStr2"
+ 6) "test"
+ 7) "testStr"
+ 8) "counter2"
+ 9) "test2"
+10) "testStr9"
+11) "testStr11"
+12) "counter"
+13) "float1"
+127.0.0.1:6379> APPEND testStr11 'edu'
+(integer) 7
+127.0.0.1:6379> 
+127.0.0.1:6379> GET testStr11
+"ajaxedu"
+127.0.0.1:6379> APPEND noExistsTest 'ajax'
+(integer) 4
+127.0.0.1:6379> GET noExistsTest
+"ajax"
+127.0.0.1:6379> HSET userInfo1 username 'king'
+(integer) 1
+127.0.0.1:6379> HSET userInfo1 password '123456'
+(integer) 1
+127.0.0.1:6379> HSET userInfo1 email 'jankz@jankz.com'
+(integer) 1
+127.0.0.1:6379> EXISTS userInfo1
+(integer) 1
+127.0.0.1:6379> HGET userInfo1 username
+"king"
+127.0.0.1:6379> HGET userInfo1 password
+"123456"
+127.0.0.1:6379> HGET userInfo1 email
+"jankz@jankz.com"
+127.0.0.1:6379> HSETNX testhash1 test 'a'
+(integer) 1
+127.0.0.1:6379> HSETNX testhash1 test '111'
+(integer) 0
+127.0.0.1:6379> HGET testhash1
+(error) ERR wrong number of arguments for 'hget' command
+127.0.0.1:6379> HGET testhash1 test
+"a"
+127.0.0.1:6379> HMSET userInfo2 username 'jankz' nickname 'jz' password '123456' email 'jankz@jankz.com'
+OK
+127.0.0.1:6379> HMGET userInfo2 username nickname password email
+1) "jankz"
+2) "jz"
+3) "123456"
+4) "jankz@jankz.com"
+127.0.0.1:6379> HMGET userInfo3 a b c
+1) (nil)
+2) (nil)
+3) (nil)
+127.0.0.1:6379> HGETALL userInfo2
+1) "username"
+2) "jankz"
+3) "nickname"
+4) "jz"
+5) "password"
+6) "123456"
+7) "email"
+8) "jankz@jankz.com"
+127.0.0.1:6379> HKEYS userInfo2
+1) "username"
+2) "nickname"
+3) "password"
+4) "email"
+127.0.0.1:6379> HVALS userInfo2
+1) "jankz"
+2) "jz"
+3) "123456"
+4) "jankz@jankz.com"
+127.0.0.1:6379> HLEN userInfo2
+(integer) 4
+127.0.0.1:6379> HSET userInfo3 age 12
+(integer) 1
+127.0.0.1:6379> HINCRBY userInfo3 age 10
+(integer) 22
+127.0.0.1:6379> HGET userInfo3 age
+"22"
+127.0.0.1:6379> HSET userInfo3 salary 1200
+(integer) 1
+127.0.0.1:6379> HINCRBYFLOAT userInfo3 salary 10.11
+"1210.10999999999999999"
+127.0.0.1:6379> HDEL userInfo2 username password
+(integer) 2
+127.0.0.1:6379> GETALL userInfo2
+(error) ERR unknown command 'GETALL'
+127.0.0.1:6379> HGETALL userInfo2
+1) "nickname"
+2) "jz"
+3) "email"
+4) "jankz@jankz.com"
+127.0.0.1:6379> TYPE userInfo2
+hash
+127.0.0.1:6379> SET cache_page 'http://jzopen.com'
+OK
+127.0.0.1:6379> EXPIRE cache_page 100
+(integer) 1
+127.0.0.1:6379> TTL cache_page
+(integer) 91
+127.0.0.1:6379> TTL cache_page
+(integer) 90
+127.0.0.1:6379> TTL cache_page
+(integer) 89
+127.0.0.1:6379> TTL cache_page
+(integer) 88
+127.0.0.1:6379> TTL cache_page
+(integer) 85
+127.0.0.1:6379> SET cache 'testCache'
+OK
+127.0.0.1:6379> EXPIRE cache 100
+(integer) 1
+127.0.0.1:6379> TTL cache
+(integer) 94
+127.0.0.1:6379> TTL cache
+(integer) 94
+127.0.0.1:6379> PERSIST cache
+(integer) 1
+127.0.0.1:6379> TTL cache
+(integer) -1
+127.0.0.1:6379> PERSIST cache
+(integer) 0
+127.0.0.1:6379> DEL CACHE
+(integer) 0
+127.0.0.1:6379> DEL ONE
+(integer) 0
+127.0.0.1:6379> DEL cache
+(integer) 1
+127.0.0.1:6379> RANDOMKEY
+"testStr11"
+127.0.0.1:6379> RANDOMKEY
+"testStr"
+127.0.0.1:6379> RANDOMKEY
+"testStr"
+127.0.0.1:6379> RANDOMKEY
+"counter2"
+127.0.0.1:6379> RANDOMKEY
+"testList1"
+127.0.0.1:6379> SET testRename1 'rename1'
+OK
+127.0.0.1:6379> RENAME testRename1 testRename2
+OK
+127.0.0.1:6379> RENAME testRename2 testRename2
+(error) ERR source and destination objects are the same
+127.0.0.1:6379> RENAME testRename2 testStr11
+OK
+127.0.0.1:6379> GET testStr11
+"rename1"
+127.0.0.1:6379> SET testRename 'test'
+OK
+127.0.0.1:6379> RENAMENX testRename Six
+(integer) 1
+127.0.0.1:6379> GET SIX
+(nil)
+127.0.0.1:6379> GET Six
+"test"
+127.0.0.1:6379>  SET testDump 'this is jankz'
+OK
+127.0.0.1:6379>  DUMP testDump
+"\x00\rthis is jankz\x06\x00\x9f\x7f\x8a\xee\x10\xb3a("
+127.0.0.1:6379> RESTORE testDump1 0 "\x00\rthis is jankz\x06\x00\x9f\x7f\x8a\xee\x10\xb3a("
+OK
+127.0.0.1:6379> GET testDump1
+"this is jankz"
+127.0.0.1:6379> SELECT 0
+OK
+127.0.0.1:6379> SET testMove 'aaa'
+OK
+127.0.0.1:6379> GET testMove
+"aaa"
+127.0.0.1:6379> SELECT 1
+OK
+127.0.0.1:6379[1]> GET testMove
+(nil)
+127.0.0.1:6379[1]> SELECT 0
+OK
+127.0.0.1:6379> MOVE testMove 1
+(integer) 1
+127.0.0.1:6379> SELECT 1
+OK
+127.0.0.1:6379[1]> GET testMove
+"aaa"
+127.0.0.1:6379[1]> SELECT 0
+OK
+127.0.0.1:6379> SET testMove 'bbb'
+OK
+127.0.0.1:6379> SELECT 1
+OK
+127.0.0.1:6379[1]> MOVE testMove 0
+(integer) 0
+127.0.0.1:6379[1]> EXISTS testList1
+(integer) 0
+127.0.0.1:6379[1]> LPUSH testList1 a b c
+(integer) 3
+127.0.0.1:6379[1]> LPUSH testList1 c d e
+(integer) 6
+127.0.0.1:6379[1]> LRANGE testList1
+(error) ERR wrong number of arguments for 'lrange' command
+127.0.0.1:6379[1]> LRANGE testList1 0 -1
+1) "e"
+2) "d"
+3) "c"
+4) "c"
+5) "b"
+6) "a"
+127.0.0.1:6379[1]> LPUSH testList1 j
+(integer) 7
+127.0.0.1:6379[1]> LRANGE testList1 0 -1
+1) "j"
+2) "e"
+3) "d"
+4) "c"
+5) "c"
+6) "b"
+7) "a"
+127.0.0.1:6379[1]> RPUSH testList1 test1 test2
+(integer) 9
+127.0.0.1:6379[1]> LRANGE testList1 0 -1
+1) "j"
+2) "e"
+3) "d"
+4) "c"
+5) "c"
+6) "b"
+7) "a"
+8) "test1"
+9) "test2"
+127.0.0.1:6379[1]> RPUSH testList1 test4 test3
+(integer) 11
+127.0.0.1:6379[1]> LPUSH myList2 A B C
+(integer) 3
+127.0.0.1:6379[1]> LPUSHX myList A B C
+(error) ERR wrong number of arguments for 'lpushx' command
+127.0.0.1:6379[1]> LPUSH myList1 A
+(integer) 1
+127.0.0.1:6379[1]> LPUSHX myList1 A
+(integer) 2
+127.0.0.1:6379[1]> LPUSHX myList1 C
+(integer) 3
+127.0.0.1:6379[1]> LANGE myList1 0 -1
+(error) ERR unknown command 'LANGE'
+127.0.0.1:6379[1]> LrANGE myList1 0 -1
+1) "C"
+2) "A"
+3) "A"
+127.0.0.1:6379[1]> LANGE myList1 0 -1
+(error) ERR unknown command 'LANGE'
+127.0.0.1:6379[1]> LRANGE testList1 0 -1
+ 1) "j"
+ 2) "e"
+ 3) "d"
+ 4) "c"
+ 5) "c"
+ 6) "b"
+ 7) "a"
+ 8) "test1"
+ 9) "test2"
+10) "test4"
+11) "test3"
+127.0.0.1:6379[1]> LPOP testList1
+"j"
+127.0.0.1:6379[1]> RPOP testList1
+"test3"
+127.0.0.1:6379[1]> RPOP testList11
+(nil)
+127.0.0.1:6379[1]> LPOP testList11
+(nil)
+127.0.0.1:6379[1]> LLEN testList1
+(integer) 9
+127.0.0.1:6379[1]> LLEN testList11
+(integer) 0
+127.0.0.1:6379[1]> LRANGE testList1 0 -1
+1) "e"
+2) "d"
+3) "c"
+4) "c"
+5) "b"
+6) "a"
+7) "test1"
+8) "test2"
+9) "test4"
+127.0.0.1:6379[1]> LRANGE testList1 0 0
+1) "e"
+127.0.0.1:6379[1]> LRANGE testList1 0 2
+1) "e"
+2) "d"
+3) "c"
+127.0.0.1:6379[1]> LRANGE testList1 -3 -1
+1) "test1"
+2) "test2"
+3) "test4"
+127.0.0.1:6379[1]> LRANGE testList1 100 3
+(empty list or set)
+127.0.0.1:6379[1]> LRANGE testList1 0 300
+1) "e"
+2) "d"
+3) "c"
+4) "c"
+5) "b"
+6) "a"
+7) "test1"
+8) "test2"
+9) "test4"
+127.0.0.1:6379[1]> LPUSH myTest2 a b c d a b v d c s
+(integer) 10
+127.0.0.1:6379[1]> LRANGE myTest2 0 -1
+ 1) "s"
+ 2) "c"
+ 3) "d"
+ 4) "v"
+ 5) "b"
+ 6) "a"
+ 7) "d"
+ 8) "c"
+ 9) "b"
+10) "a"
+127.0.0.1:6379[1]> LLEN myTest2
+(integer) 10
+127.0.0.1:6379[1]> LREM myTest2 2 b
+(integer) 2
+127.0.0.1:6379[1]> LRANGE myTest2 0 -1
+1) "s"
+2) "c"
+3) "d"
+4) "v"
+5) "a"
+6) "d"
+7) "c"
+8) "a"
+127.0.0.1:6379[1]> LLEN myTest2
+(integer) 8
+127.0.0.1:6379[1]> LREM myTest2 -2 c
+(integer) 2
+127.0.0.1:6379[1]> LRANGE myTest2 0 -1
+1) "s"
+2) "d"
+3) "v"
+4) "a"
+5) "d"
+6) "a"
+127.0.0.1:6379[1]> LREM myTest2 0 a
+(integer) 2
+127.0.0.1:6379[1]> LRANGE myTest2 0 -1
+1) "s"
+2) "d"
+3) "v"
+4) "d"
+127.0.0.1:6379[1]> LRANGE myTest2 0 -1
+1) "s"
+2) "d"
+3) "v"
+4) "d"
+127.0.0.1:6379[1]> RPUSH myTest2 j k x c v a a s
+(integer) 12
+127.0.0.1:6379[1]> LINDEX myTest2 4
+"j"
+127.0.0.1:6379[1]> LINDEX myTest2 5
+"k"
+127.0.0.1:6379[1]> LINDEX myTest2 9
+"a"
+127.0.0.1:6379[1]> LINDEX myTest2 10
+"a"
+127.0.0.1:6379[1]> LINDEX myTest2 11
+"s"
+127.0.0.1:6379[1]> LINDEX myTest2 12
+(nil)
+127.0.0.1:6379[1]> LSET myTest2 11 ss
+OK
+127.0.0.1:6379[1]> LINDEX myTest2 11
+"ss"
+127.0.0.1:6379[1]> LPUSH myList3 log1 log2 log3 log4 log5
+(integer) 5
+127.0.0.1:6379[1]> LRANGE myList3 0 -1
+1) "log5"
+2) "log4"
+3) "log3"
+4) "log2"
+5) "log1"
+127.0.0.1:6379[1]> LTRIM myList3 0 2
+OK
+127.0.0.1:6379[1]> LRANGE myList3 0 -1
+1) "log5"
+2) "log4"
+3) "log3"
+127.0.0.1:6379[1]> LPUSH myList3 log11 log12 log13 log14 log15
+(integer) 8
+127.0.0.1:6379[1]> LTRIM myList3 0 1
+OK
+127.0.0.1:6379[1]> LRANGE myList3 0 -1
+1) "log15"
+2) "log14"
+127.0.0.1:6379[1]> LTRIM myList3 100 300
+OK
+127.0.0.1:6379[1]> LRANGE myList3 0 -1
+(empty list or set)
+127.0.0.1:6379[1]> LPUSH myList5 a b c d
+(integer) 4
+127.0.0.1:6379[1]> LINSERT myList5 BEFORE 'b' 'Jz'
+(integer) 5
+127.0.0.1:6379[1]> LRANGE myList5 0 -1
+1) "d"
+2) "c"
+3) "Jz"
+4) "b"
+5) "a"
+127.0.0.1:6379[1]> LINSERT myList5 BEFORE 'bb' 'Jz'
+(integer) -1
+127.0.0.1:6379[1]> LINSERT myList5 AFTER 'd' 'jzopen'
+(integer) 6
+127.0.0.1:6379[1]> LRANGE myList5 0 -1
+1) "d"
+2) "jzopen"
+3) "c"
+4) "Jz"
+5) "b"
+6) "a"
+127.0.0.1:6379[1]> LPUSH myList6 a b c 
+(integer) 3
+127.0.0.1:6379[1]> LPUSH myList7 x y z 
+(integer) 3
+127.0.0.1:6379[1]> RPOPLPUSH myList6 myList7
+"a"
+127.0.0.1:6379[1]> LRANGE myList7 0 -1
+1) "a"
+2) "z"
+3) "y"
+4) "x"
+127.0.0.1:6379[1]> LPUSH weblog log1 log2 log3 log4
+(integer) 4
+127.0.0.1:6379[1]> RPOPLPUSH weblog weblog
+"log1"
+127.0.0.1:6379[1]> RPOPLPUSH weblog weblog
+"log2"
+127.0.0.1:6379[1]> RPOPLPUSH weblog weblog
+"log3"
+127.0.0.1:6379[1]> RPOPLPUSH weblog weblog
+"log4"
+127.0.0.1:6379[1]> RPOPLPUSH weblog weblog
+"log1"
+127.0.0.1:6379[1]> RPOPLPUSH weblog weblog
+"log2"
+127.0.0.1:6379[1]> RPOPLPUSH weblog weblog
+"log3"
+127.0.0.1:6379[1]> RPOPLPUSH weblog weblog
+"log4"
+127.0.0.1:6379[1]> RPOPLPUSH weblog weblog
+"log1"
+127.0.0.1:6379[1]> RPOPLPUSH weblog1 weblog
+(nil)
+127.0.0.1:6379[1]> LPUSH myList9 a b c
+(integer) 3
+127.0.0.1:6379[1]> LPUSH myList10 d e f
+(integer) 3
+127.0.0.1:6379[1]> BLPOP myList8 myList9 myList10 0
+1) "myList9"
+2) "c"
+127.0.0.1:6379[1]> BLPOP myList8 0
+1) "myList8"
+2) "c"
+(63.54s)
+127.0.0.1:6379[1]> SADD web jzopen.com
+(integer) 1
+127.0.0.1:6379[1]> SADD web jzopen.com
+(integer) 0
+127.0.0.1:6379[1]> SADD web taobao.com jd.com janzk.com
+(integer) 3
+127.0.0.1:6379[1]> SMEMBERS
+(error) ERR wrong number of arguments for 'smembers' command
+127.0.0.1:6379[1]> SMEMBERS web
+1) "taobao.com"
+2) "janzk.com"
+3) "jzopen.com"
+4) "jd.com"
+127.0.0.1:6379[1]> SMEMBERS web123
+(empty list or set)
+127.0.0.1:6379[1]>  SISMEMBER web jankz.com
+(integer) 0
+127.0.0.1:6379[1]>  SISMEMBER web janzk.com
+(integer) 1
+127.0.0.1:6379[1]> SREM web jd.com
+(integer) 1
+127.0.0.1:6379[1]> SMEMBERS web
+1) "taobao.com"
+2) "janzk.com"
+3) "jzopen.com"
+127.0.0.1:6379[1]> SADD web jankz.com
+(integer) 1
+127.0.0.1:6379[1]> SMEMBERS web
+1) "taobao.com"
+2) "janzk.com"
+3) "jzopen.com"
+4) "jankz.com"
+127.0.0.1:6379[1]> SREM web jd.com
+(integer) 0
+127.0.0.1:6379[1]> SREM web taobao.com jankz.com
+(integer) 2
+127.0.0.1:6379[1]> SADD course java php ajax html css xss 
+(integer) 6
+127.0.0.1:6379[1]> SPOP course
+"html"
+127.0.0.1:6379[1]> SPOP course
+"java"
+127.0.0.1:6379[1]> SPOP course
+"css"
+127.0.0.1:6379[1]> SRANDMEMBER course 
+"ajax"
+127.0.0.1:6379[1]> SRANDMEMBER course 
+"php"
+127.0.0.1:6379[1]> SRANDMEMBER course 
+"php"
+127.0.0.1:6379[1]> SRANDMEMBER course 
+"xss"
+127.0.0.1:6379[1]> SRANDMEMBER course 2
+1) "xss"
+2) "php"
+127.0.0.1:6379[1]> SRANDMEMBER course 10
+1) "ajax"
+2) "xss"
+3) "php"
+127.0.0.1:6379[1]> SRANDMEMBER course 0
+(empty list or set)
+127.0.0.1:6379[1]> SRANDMEMBER course -2
+1) "ajax"
+2) "ajax"
+127.0.0.1:6379[1]> SRANDMEMBER course -3
+1) "ajax"
+2) "ajax"
+3) "ajax"
+127.0.0.1:6379[1]> SRANDMEMBER course -2
+1) "xss"
+2) "php"
+127.0.0.1:6379[1]> SADD testSet1 a b c d
+(integer) 4
+127.0.0.1:6379[1]> SADD testSet2 b c d e
+(integer) 4
+127.0.0.1:6379[1]> SDIFF testSet1 testSet2
+1) "a"
+127.0.0.1:6379[1]> SDIFF testSet2 testSet1
+1) "e"
+127.0.0.1:6379[1]> SADD testSet3 x y z
+(integer) 3
+127.0.0.1:6379[1]> SDIFF testSet2 testSet1 testSet3
+1) "e"
+127.0.0.1:6379[1]> SINTER testSet1 testSet2
+1) "d"
+2) "b"
+3) "c"
+127.0.0.1:6379[1]> SUNION testSet1 testSet2
+1) "e"
+2) "d"
+3) "b"
+4) "c"
+5) "a"
+127.0.0.1:6379[1]> SCARD testSet1
+(integer) 4
+127.0.0.1:6379[1]> SDIFFSTORE diffset testStr1 testStr2
+(integer) 0
+127.0.0.1:6379[1]> SMEMBERS diffset
+(empty list or set)
+127.0.0.1:6379[1]> SDIFFSTORE diffset testStr1 testStr2
+(integer) 0
+127.0.0.1:6379[1]> SDIFFSTORE diffset testSet1 testSet2
+(integer) 1
+127.0.0.1:6379[1]> SMEMBERS diffset
+1) "a"
+127.0.0.1:6379[1]> SDIFFSTORE diffset testSet2 testSet1
+(integer) 1
+127.0.0.1:6379[1]> SMEMBERS diffset
+1) "e"
+127.0.0.1:6379[1]> SDIFFSTORE diffset testSet2 testSet2 testSet1
+(integer) 0
+127.0.0.1:6379[1]> SDIFFSTORE diffset testSet1 testSet1 testSet2
+(integer) 0
+127.0.0.1:6379[1]> SMEMBERS diffset
+(empty list or set)
+127.0.0.1:6379[1]> SMEMBERS testSet1
+1) "d"
+2) "b"
+3) "c"
+4) "a"
+127.0.0.1:6379[1]> SMEMBERS testSet2
+1) "e"
+2) "d"
+3) "b"
+4) "c"
+127.0.0.1:6379[1]> SADD testSet2 x y z
+(integer) 3
+127.0.0.1:6379[1]> SMEMBERS testSet2
+1) "c"
+2) "e"
+3) "x"
+4) "z"
+5) "b"
+6) "d"
+7) "y"
+127.0.0.1:6379[1]> SDIFFSTORE diffset testSet1 testSet1 testSet2
+(integer) 0
+127.0.0.1:6379[1]> SDIFFSTORE diffset testSet1  testSet2
+(integer) 1
+127.0.0.1:6379[1]> SUNIONSTORE unionset testSet1  testSet2
+(integer) 8
+127.0.0.1:6379[1]> SMEMBERS unionset
+1) "x"
+2) "e"
+3) "z"
+4) "d"
+5) "b"
+6) "y"
+7) "c"
+8) "a"
+127.0.0.1:6379[1]> SINTERSTORE inserset testSet1  testSet2
+(integer) 3
+127.0.0.1:6379[1]> SMEMBERS inserset
+1) "b"
+2) "d"
+3) "c"
+127.0.0.1:6379[1]> SMEMBERS testSet2
+1) "e"
+2) "x"
+3) "z"
+4) "b"
+5) "d"
+6) "y"
+7) "c"
+127.0.0.1:6379[1]> SMOVE testSet2 testStr1 x
+(integer) 1
+127.0.0.1:6379[1]> SMEMBERS testSet1
+1) "d"
+2) "b"
+3) "c"
+4) "a"
+127.0.0.1:6379[1]> SMEMBERS testSet2
+1) "e"
+2) "z"
+3) "b"
+4) "d"
+5) "y"
+6) "c"
+127.0.0.1:6379[1]> SMOVE testSet2 testSet1 y
+(integer) 1
+127.0.0.1:6379[1]> SMEMBERS testSet1
+1) "d"
+2) "b"
+3) "c"
+4) "a"
+5) "y"
+127.0.0.1:6379[1]> SMOVE testSet2 testSet1 y
+(integer) 0
+127.0.0.1:6379[1]> SADD testStr2 y
+(integer) 1
+127.0.0.1:6379[1]> SMOVE testSet2 testSet1 y
+(integer) 0
+127.0.0.1:6379[1]> ZADD phpScore 100 king 
+(integer) 1
+127.0.0.1:6379[1]> ZADD phpScore 99 maizi 80 jankz 20 test1 80 test3
+(integer) 4
+127.0.0.1:6379[1]> ZSCORE phpScore jankz
+"80"
+127.0.0.1:6379[1]> ZADD phpScore 102.5 test4 
+(integer) 1
+127.0.0.1:6379[1]> ZSCORE phpScore test5
+(nil)
+127.0.0.1:6379[1]> ZSCORE phpScore test4
+"102.5"
+127.0.0.1:6379[1]> ZADD phpScore +inf maxInt -inf minInt
+(integer) 2
+127.0.0.1:6379[1]> ZSCORE phpScore minInt
+"-inf"
+127.0.0.1:6379[1]> ZSCORE phpScore maxInf
+(nil)
+127.0.0.1:6379[1]> ZSCORE phpScore maxInt
+"inf"
+127.0.0.1:6379[1]> ZRANGE phpScore 0 -1
+1) "minInt"
+2) "test1"
+3) "jankz"
+4) "test3"
+5) "maizi"
+6) "king"
+7) "test4"
+8) "maxInt"
+127.0.0.1:6379[1]> ZRANGE phpScore 0 2 WITHSCORES
+1) "minInt"
+2) "-inf"
+3) "test1"
+4) "20"
+5) "jankz"
+6) "80"
+127.0.0.1:6379[1]> ZRANGE phpScore 0 -1 WITHSCORES
+ 1) "minInt"
+ 2) "-inf"
+ 3) "test1"
+ 4) "20"
+ 5) "jankz"
+ 6) "80"
+ 7) "test3"
+ 8) "80"
+ 9) "maizi"
+10) "99"
+11) "king"
+12) "100"
+13) "test4"
+14) "102.5"
+15) "maxInt"
+16) "inf"
+127.0.0.1:6379[1]> ZRANGE phpScore 0 100 WITHSCORES
+ 1) "minInt"
+ 2) "-inf"
+ 3) "test1"
+ 4) "20"
+ 5) "jankz"
+ 6) "80"
+ 7) "test3"
+ 8) "80"
+ 9) "maizi"
+10) "99"
+11) "king"
+12) "100"
+13) "test4"
+14) "102.5"
+15) "maxInt"
+16) "inf"
+127.0.0.1:6379[1]> ZADD phpScore 60 test6 60 test7 60 test8 60 test9
+(integer) 4
+127.0.0.1:6379[1]> ZRANGE phpScore 0 -1 WITHSCORES
+ 1) "minInt"
+ 2) "-inf"
+ 3) "test1"
+ 4) "20"
+ 5) "test6"
+ 6) "60"
+ 7) "test7"
+ 8) "60"
+ 9) "test8"
+10) "60"
+11) "test9"
+12) "60"
+13) "jankz"
+14) "80"
+15) "test3"
+16) "80"
+17) "maizi"
+18) "99"
+19) "king"
+20) "100"
+21) "test4"
+22) "102.5"
+23) "maxInt"
+24) "inf"
+127.0.0.1:6379[1]> ZREVRANGE phpScore 0 -1 WITHSCORE
+(error) ERR syntax error
+127.0.0.1:6379[1]> ZRREVANGE phpScore 0 -1 WITHSCORE
+(error) ERR unknown command 'ZRREVANGE'
+127.0.0.1:6379[1]> ZREVRANGE phpScore 0 -1 WITHSCORE
+(error) ERR syntax error
+127.0.0.1:6379[1]> ZREVRANGE phpScore 0 -1 WITHSCORES
+ 1) "maxInt"
+ 2) "inf"
+ 3) "test4"
+ 4) "102.5"
+ 5) "king"
+ 6) "100"
+ 7) "maizi"
+ 8) "99"
+ 9) "test3"
+10) "80"
+11) "jankz"
+12) "80"
+13) "test9"
+14) "60"
+15) "test8"
+16) "60"
+17) "test7"
+18) "60"
+19) "test6"
+20) "60"
+21) "test1"
+22) "20"
+23) "minInt"
+24) "-inf"
+127.0.0.1:6379[1]> ZRANGEBYSCORE phpScore 80 90
+1) "jankz"
+2) "test3"
+127.0.0.1:6379[1]> ZADD 81 test9 82 test10 88 test11 98 test12
+(error) ERR syntax error
+127.0.0.1:6379[1]> ZADD phpScore 81 test9 82 test10 88 test11 98 test12
+(integer) 3
+127.0.0.1:6379[1]> ZRANGEBYSCORE phpScore 80 90
+1) "jankz"
+2) "test3"
+3) "test9"
+4) "test10"
+5) "test11"
+127.0.0.1:6379[1]> ZADD phpScore 90 test13
+(integer) 1
+127.0.0.1:6379[1]> ZRANGEBYSCORE phpScore 80 (90 WITHSCORES)
+(error) ERR syntax error
+127.0.0.1:6379[1]> ZRANGEBYSCORE phpScore 80 (90 WITHSCORES
+ 1) "jankz"
+ 2) "80"
+ 3) "test3"
+ 4) "80"
+ 5) "test9"
+ 6) "81"
+ 7) "test10"
+ 8) "82"
+ 9) "test11"
+10) "88"
+127.0.0.1:6379[1]> ZRANGEBYSCORE phpScore (80 (90 WITHSCORES
+1) "test9"
+2) "81"
+3) "test10"
+4) "82"
+5) "test11"
+6) "88"
+127.0.0.1:6379[1]> ZRANGEBYSCORE phpScore 90 +inf WITHSCORES 
+ 1) "test13"
+ 2) "90"
+ 3) "test12"
+ 4) "98"
+ 5) "maizi"
+ 6) "99"
+ 7) "king"
+ 8) "100"
+ 9) "test4"
+10) "102.5"
+11) "maxInt"
+12) "inf"
+127.0.0.1:6379[1]> ZRANGEBYSCORE phpScore 90 +inf WITHSCORES LIMIT 0 3
+1) "test13"
+2) "90"
+3) "test12"
+4) "98"
+5) "maizi"
+6) "99"
+127.0.0.1:6379[1]> ZRANGEBYSCORE phpScore 80 +inf WITHSCORES LIMIT 3 3
+1) "test10"
+2) "82"
+3) "test11"
+4) "88"
+5) "test13"
+6) "90"
+127.0.0.1:6379[1]> ZREVRANGEBYSCORE phpScore 90 80 WITHSCORES
+ 1) "test13"
+ 2) "90"
+ 3) "test11"
+ 4) "88"
+ 5) "test10"
+ 6) "82"
+ 7) "test9"
+ 8) "81"
+ 9) "test3"
+10) "80"
+11) "jankz"
+12) "80"
+127.0.0.1:6379[1]> ZREVRANGEBYSCORE phpScore 90 80 WITHSCORES LIMIT 0 3
+1) "test13"
+2) "90"
+3) "test11"
+4) "88"
+5) "test10"
+6) "82"
+127.0.0.1:6379[1]> ZINCE phpScore 10 test13
+(error) ERR unknown command 'ZINCE'
+127.0.0.1:6379[1]> ZINCRBY phpScore 10 test13
+"100"
+127.0.0.1:6379[1]> ZINCRBY phpScore -21 test13
+"79"
+127.0.0.1:6379[1]> ZCARD phpScore
+(integer) 16
+127.0.0.1:6379[1]> ZCOUNT phpScore (80 (90
+(integer) 3
+127.0.0.1:6379[1]> ZREM phpScore test9 test10
+(integer) 2
+127.0.0.1:6379[1]> ZCARD phpScore
+(integer) 14
+127.0.0.1:6379[1]> ZADD testRem 1 a 2 b 3c 4 d 5 e 6 f 7 g 8 h
+(error) ERR syntax error
+127.0.0.1:6379[1]> ZADD testRem 1 a 2 b 3 c 4 d 5 e 6 f 7 g 8 h
+(integer) 8
+127.0.0.1:6379[1]> ZCOUNT testRem
+(error) ERR wrong number of arguments for 'zcount' command
+127.0.0.1:6379[1]> ZCARD testRem
+(integer) 8
+127.0.0.1:6379[1]> ZRANGE testRem 0 -1 WITHSCORES
+ 1) "a"
+ 2) "1"
+ 3) "b"
+ 4) "2"
+ 5) "c"
+ 6) "3"
+ 7) "d"
+ 8) "4"
+ 9) "e"
+10) "5"
+11) "f"
+12) "6"
+13) "g"
+14) "7"
+15) "h"
+16) "8"
+127.0.0.1:6379[1]> ZREMRANGEBYRANK testRem 0 2
+(integer) 3
+127.0.0.1:6379[1]> ZRANGE testRem 0 -1 WITHSCORES
+ 1) "d"
+ 2) "4"
+ 3) "e"
+ 4) "5"
+ 5) "f"
+ 6) "6"
+ 7) "g"
+ 8) "7"
+ 9) "h"
+10) "8"
+127.0.0.1:6379[1]> ZADD testRem1 1 a 2 b 3 c 4 d 5 e 6 f 7 g 8 h
+(integer) 8
+127.0.0.1:6379[1]> ZREMRANGEBYSCORE testRem1 3 7
+(integer) 5
+127.0.0.1:6379[1]> ZRANGE testRem1 0 -1 WITHSCORES
+1) "a"
+2) "1"
+3) "b"
+4) "2"
+5) "h"
+6) "8"
+127.0.0.1:6379[1]> ZRANGE phpScore 0 -1
+ 1) "minInt"
+ 2) "test1"
+ 3) "test6"
+ 4) "test7"
+ 5) "test8"
+ 6) "test13"
+ 7) "jankz"
+ 8) "test3"
+ 9) "test11"
+10) "test12"
+11) "maizi"
+12) "king"
+13) "test4"
+14) "maxInt"
+127.0.0.1:6379[1]> ZRANK phpScore king
+(integer) 11
+127.0.0.1:6379[1]> ZREVRANK phpScore king
+(integer) 2
+127.0.0.1:6379[1]> ZADD testSorted1 1 a 2 b 3 c
+(integer) 3
+127.0.0.1:6379[1]> ZADD testSorted2 10 a 20 b 30 c
+(integer) 3
+127.0.0.1:6379[1]> ZINTERSTROE resTestSorted1 2 testSorted1 testSorted2
+(error) ERR unknown command 'ZINTERSTROE'
+127.0.0.1:6379[1]> ZINTERSTORE resTestSorted1 2 testSorted1 testSorted2
+(integer) 3
+127.0.0.1:6379[1]> ZRANGE resTestSorted1 0 -1
+1) "a"
+2) "b"
+3) "c"
+127.0.0.1:6379[1]> ZRANGE resTestSorted1 0 -1 WITHSCORES
+1) "a"
+2) "11"
+3) "b"
+4) "22"
+5) "c"
+6) "33"
+127.0.0.1:6379[1]> ZINTERSTORE resTestSorted1 2 testSorted1 testSorted2 AGGREGATE SUM
+(integer) 3
+127.0.0.1:6379[1]> ZRANGE resTestSorted1 0 -1 WITHSCORES
+1) "a"
+2) "11"
+3) "b"
+4) "22"
+5) "c"
+6) "33"
+127.0.0.1:6379[1]> ZINTERSTORE resTestSorted2 2 testSorted1 testSorted2 AGGREGATE MIN
+(integer) 3
+127.0.0.1:6379[1]> ZRANGE resTestSorted2 0 -1 WITHSCORES
+1) "a"
+2) "1"
+3) "b"
+4) "2"
+5) "c"
+6) "3"
+127.0.0.1:6379[1]> ZINTERSTORE resTestSorted3 2 testSorted1 testSorted2 AGGREGATE MAX
+(integer) 3
+127.0.0.1:6379[1]> ZRANGE resTestSorted3 0 -1 WITHSCORES
+1) "a"
+2) "10"
+3) "b"
+4) "20"
+5) "c"
+6) "30"
+127.0.0.1:6379[1]> ZINTERSTORE resTestSorted5 2 testSorted1 testSorted2 WEIGHT 2 0.2
+(error) ERR syntax error
+127.0.0.1:6379[1]> ZINTERSTORE resTestSorted5 2 testSorted1 testSorted2 WEIGHTS 2 0.2
+(integer) 3
+127.0.0.1:6379[1]> ZRANGE resTestSorted5 0 -1 WITHSCORES
+1) "a"
+2) "4"
+3) "b"
+4) "8"
+5) "c"
+6) "12"
+127.0.0.1:6379[1]> ZADD testUnion1 1 a 2 b 3 c
+(integer) 3
+127.0.0.1:6379[1]> ZADD testUnion2 4 d 5 e 6 f 7 a
+(integer) 4
+127.0.0.1:6379[1]> ZUNIONSTORE uniRes1 2 testUnion1 testUnion2
+(integer) 6
+127.0.0.1:6379[1]> ZRANGE uniRes1 0 -1
+1) "b"
+2) "c"
+3) "d"
+4) "e"
+5) "f"
+6) "a"
+127.0.0.1:6379[1]> ZRANGE uniRes1 0 -1 WITHSCORES
+ 1) "b"
+ 2) "2"
+ 3) "c"
+ 4) "3"
+ 5) "d"
+ 6) "4"
+ 7) "e"
+ 8) "5"
+ 9) "f"
+10) "6"
+11) "a"
+12) "8"
+127.0.0.1:6379[1]> ZUNIONSTORE uniRes2 2 testUnion1 testUnion2 AGGREGATE MIN
+(integer) 6
+127.0.0.1:6379[1]> ZRANGE uniRes2 0 -1 WITHSCORES
+ 1) "a"
+ 2) "1"
+ 3) "b"
+ 4) "2"
+ 5) "c"
+ 6) "3"
+ 7) "d"
+ 8) "4"
+ 9) "e"
+10) "5"
+11) "f"
+12) "6"
+127.0.0.1:6379[1]> ZUNIONSTORE uniRes3 2 testUnion1 testUnion2 AGGREGATE MAX
+(integer) 6
+127.0.0.1:6379[1]> ZRANGE uniRes3 0 -1 WITHSCORES
+ 1) "b"
+ 2) "2"
+ 3) "c"
+ 4) "3"
+ 5) "d"
+ 6) "4"
+ 7) "e"
+ 8) "5"
+ 9) "f"
+10) "6"
+11) "a"
+12) "7"
+127.0.0.1:6379[1]> ZUNIONSTORE uniRes4 2 testUnion1 testUnion2 WEIGHTS 2 2
+(integer) 6
+127.0.0.1:6379[1]> ZRANGE uniRes4 0 -1 WITHSCORES
+ 1) "b"
+ 2) "4"
+ 3) "c"
+ 4) "6"
+ 5) "d"
+ 6) "8"
+ 7) "e"
+ 8) "10"
+ 9) "f"
+10) "12"
+11) "a"
+12) "16"
+127.0.0.1:6379[1]>
