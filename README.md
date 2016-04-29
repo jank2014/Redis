@@ -6,20 +6,20 @@ Redis
 远程服务器字典
 
 homebrew 安装的
-
-```To have launchd start redis now and restart at login:
+```
+To have launchd start redis now and restart at login:
   brew services start redis
 Or, if you don't want/need a background service you can just run:
   redis-server /usr/local/etc/redis.conf
 ```
 
 ##bin目录可执行程序
-redis-server Redis服务器
-redis-cli 客户端
-redis-benchmark 性能测试工具
-redis-check-aof AOF文件修复工具
-redis-check-dump RDB文件检测工具
-redis.conf Redis的配置文件
+* redis-server Redis服务器
+* redis-cli 客户端
+* redis-benchmark 性能测试工具
+* redis-check-aof AOF文件修复工具
+* redis-check-dump RDB文件检测工具
+* redis.conf Redis的配置文件
 
 将配置文件的daemonize
 daemonize = yes 守护进程启用  
@@ -41,7 +41,8 @@ GET test1
 ##多行字符串回复
 KEYS *
 
-```jankz:~ jankz$ redis-cli
+```
+jankz:~ jankz$ redis-cli
 127.0.0.1:6379> ping
 PONG
 127.0.0.1:6379> SET test 'This is jankz test'
@@ -67,13 +68,13 @@ OK
 shotdown关闭
 CONFIG GET loglevel
 
-```.
+```
 1) "loglevel"
 2) "notice"
 ```
 CONFIG GET port
 
-```.
+```
 1) "port"
 2) "6379"
 ```
@@ -106,8 +107,6 @@ save 60 10000
 
 ##dir 指定本地数据库的存放目录 默认当前目录
 
-
-
 #数据类型
 ##String类型
 一个键最多存储512M
@@ -129,7 +128,8 @@ key如果不存在会初始化为0再进行INCR操作
 SET counter2 10
 INCR BY counter2 16
 
-```127.0.0.1:6379> INCR BY counter2 10
+```
+127.0.0.1:6379> INCR BY counter2 10
 (error) ERR wrong number of arguments for 'incr' command
 127.0.0.1:6379> INCRBY counter2 10
 (integer) 20
@@ -140,7 +140,7 @@ INCR BY counter2 16
 SET float1 4.2
 INCRBYFLOAT float1 3.4
 
-```(error) ERR syntax error
+```
 127.0.0.1:6379>  SET float1 4.2
 OK
 127.0.0.1:6379> INCRBYFLOAT float1 3.4
@@ -151,7 +151,8 @@ DECR counter2
 同名会覆盖
 ####DECRBY J将key中存储的数值减去指定的值
 
-```127.0.0.1:6379> DECR counter2
+```
+127.0.0.1:6379> DECR counter2
 (integer) 19
 127.0.0.1:6379> DECRBY counter2 12 
 (integer) 7
@@ -169,7 +170,8 @@ GET testStr
 LPUSH testList1 a b c;
 GET testList1
 
-```127.0.0.1:6379> SET testStr  = 'jankz'
+```
+127.0.0.1:6379> SET testStr  = 'jankz'
 (error) ERR syntax error
 127.0.0.1:6379> SET testStr 'jankz'
 OK
@@ -193,7 +195,8 @@ GETRANGE testStr2 -4 -2
 GETRANGE testStr2 0 1000
 GETRANGE testStr2 -4 2
 
-```127.0.0.1:6379> SET testStr2 'maiziedu'
+```
+127.0.0.1:6379> SET testStr2 'maiziedu'
 OK
 127.0.0.1:6379> GETRANGE testStr2 0 4 
 "maizi"
@@ -212,7 +215,8 @@ OK
  SET testStr3 'Queen' 
  GETSET testStr3 'King'
  
-```127.0.0.1:6379> SET testStr3 'King'
+```
+127.0.0.1:6379> SET testStr3 'King'
 OK
 127.0.0.1:6379> GET testStr3
 "King"
@@ -260,7 +264,8 @@ SETRANGE testStr10 6 'King'
 GETRANGE 返回字符串的一部分
 语法 GETRANGE key start end
 
-```127.0.0.1:6379> SET testStr9 'Hello Jankz'
+```
+127.0.0.1:6379> SET testStr9 'Hello Jankz'
 OK
 127.0.0.1:6379> GET testStr9
 "Hello Jankz"
@@ -295,7 +300,8 @@ PTTL
 APPEND testStr11 'edu'
 APPEND noExistsTest 'ajax'
 
-```127.0.0.1:6379> APPEND testStr11 'edu'
+```
+127.0.0.1:6379> APPEND testStr11 'edu'
 (integer) 7
 127.0.0.1:6379> 
 127.0.0.1:6379> GET testStr11
@@ -313,7 +319,8 @@ HSET userInfo1 username 'king'
 HSET userInfo1 password '123456'
 HSET userInfo1 email 'jankz@jankz.com'
 
-```127.0.0.1:6379> APPEND noExistsTest 'ajax'
+```
+127.0.0.1:6379> APPEND noExistsTest 'ajax'
 (integer) 4
 127.0.0.1:6379> GET noExistsTest
 "ajax"
@@ -335,7 +342,8 @@ HGET userInfo1 username
 HGET userInfo1 password
 HGET userInfo1 email
 
-```127.0.0.1:6379> HGET userInfo1 username
+```
+127.0.0.1:6379> HGET userInfo1 username
 "king"
 127.0.0.1:6379> HGET userInfo1 password
 "123456"
@@ -348,7 +356,8 @@ HGET userInfo1 email
 如果field 存在 操作无效 操作无效返回0
 语法: HSETNX testhash1 test 'a'
 
-```127.0.0.1:6379> HSETNX testhash1 test 'a'
+```
+127.0.0.1:6379> HSETNX testhash1 test 'a'
 (integer) 1
 127.0.0.1:6379> HSETNX testhash1 test '111'
 (integer) 0
@@ -367,7 +376,7 @@ HMSET userInfo2 username 'jankz2016' nickname 'admin' password '123456' email 'j
 ###HMGET  一次获得哈希表中多个field的值
 HMGET userInfo2 username nickname password email
 
-```OK
+```
 127.0.0.1:6379> HMGET userInfo2 username nickname password email
 1) "jankz"
 2) "jz"
@@ -377,7 +386,8 @@ HMGET userInfo2 username nickname password email
 
 HMGET userInfo3 a b c
 
-```127.0.0.1:6379> HMGET userInfo3 a b c
+```
+127.0.0.1:6379> HMGET userInfo3 a b c
 1) (nil)
 2) (nil)
 3) (nil)
@@ -387,7 +397,8 @@ HMGET userInfo3 a b c
 ###HGETALL 返回哈希表key中所有的field和value
 语法HGETALL key
 
-```127.0.0.1:6379> HGETALL userInfo2
+```
+127.0.0.1:6379> HGETALL userInfo2
 1) "username"
 2) "jankz"
 3) "nickname"
@@ -401,7 +412,8 @@ HMGET userInfo3 a b c
 ###HKEYS key 
 HKEYS userInfo2
 
-```127.0.0.1:6379> HKEYS userInfo2
+```
+127.0.0.1:6379> HKEYS userInfo2
 1) "username"
 2) "nickname"
 3) "password"
@@ -411,7 +423,8 @@ HKEYS userInfo2
 语法 HVALS KEY 
 HVALS userInfo2
   
-```127.0.0.1:6379> HVALS userInfo2
+```
+127.0.0.1:6379> HVALS userInfo2
 1) "jankz"
 2) "jz"
 3) "123456"
@@ -428,7 +441,8 @@ HLEN userInfo2
 HSET userInfo3 age 12
 HINCRBY userInfo3 age 10
 
-```127.0.0.1:6379> HSET userInfo3 age 12
+```
+127.0.0.1:6379> HSET userInfo3 age 12
 (integer) 1
 127.0.0.1:6379> HINCRBY userInfo3 age 10
 (integer) 22 
@@ -440,7 +454,8 @@ HINCRBY userInfo3 age 10
 HSET userInfo3 salary 1200
 HINCRBYFLOAT userInfo3 salary 10.11
 
-```127.0.0.1:6379> HSET userInfo3 salary 1200
+```
+127.0.0.1:6379> HSET userInfo3 salary 1200
 (integer) 1
 127.0.0.1:6379> HINCRBYFLO
 ```
@@ -499,7 +514,8 @@ SET cache_page 'http://jzopen.com'
 EXPIRE cache_page 100
 
 
-```127.0.0.1:6379> TYPE userInfo2
+```
+127.0.0.1:6379> TYPE userInfo2
 hash
 127.0.0.1:6379> SET cache_page 'http://jzopen.com'
 OK
@@ -539,7 +555,8 @@ TTL cache
 PERSIST cache
 TTL cache
 
-```127.0.0.1:6379> SET cache 'testCache'
+```
+127.0.0.1:6379> SET cache 'testCache'
 OK
 127.0.0.1:6379> EXPIRE cache 100
 (integer) 1
@@ -556,14 +573,15 @@ OK
 ```
 ##删除指定key
 DEL key
-```.
+```
 127.0.0.1:6379> DEL cache
 (integer) 1
 ```
 ##RANDOMKEY 随机的从当前数据库中返回一个key
 语法:RANDOMKEY
 
-```127.0.0.1:6379> RANDOMKEY
+```
+127.0.0.1:6379> RANDOMKEY
 "testStr11"
 127.0.0.1:6379> RANDOMKEY
 "testStr"
@@ -580,7 +598,8 @@ RENAME testRename1 testRename2
 RENAME testRename2 testRename2
 RENAME testRename2 testStr11
 
-```127.0.0.1:6379> SET testRename1 'rename1'
+```
+127.0.0.1:6379> SET testRename1 'rename1'
 OK
 127.0.0.1:6379> RENAME testRename1 testRename2
 OK
@@ -597,7 +616,8 @@ OK
 SET testRename 'test'
 RENAMENX testRename Six
 
-```127.0.0.1:6379> RENAMENX testRename Six
+```
+127.0.0.1:6379> RENAMENX testRename Six
 (integer) 1
 127.0.0.1:6379> GET SIX
 (nil)
@@ -609,7 +629,8 @@ RENAMENX testRename Six
  SET testDump 'this is jankz'
  DUMP testDump
 
-```127.0.0.1:6379>  SET testDump 'this is jankz'
+```
+127.0.0.1:6379>  SET testDump 'this is jankz'
 OK
 127.0.0.1:6379>  DUMP testDump
 "\x00\rthis is jankz\x06\x00\x9f\x7f\x8a\xee\x10\xb3a("
@@ -621,7 +642,8 @@ RESTORE testDump1 tt1
 RESTORE testDump1 0 "\x00\rthis is jankz\x06\x00\x9f\x7f\x8a\xee\x10\xb3a("
 
 
-```127.0.0.1:6379> RESTORE testDump1 0 "\x00\rthis is jankz\x06\x00\x9f\x7f\x8a\xee\x10\xb3a("
+```
+127.0.0.1:6379> RESTORE testDump1 0 "\x00\rthis is jankz\x06\x00\x9f\x7f\x8a\xee\x10\xb3a("
 OK
 127.0.0.1:6379> GET testDump1
 "this is jankz"
@@ -633,7 +655,8 @@ SET testMove 'aaa'
 SELECT 0
 MOVE testMove
 
-```127.0.0.1:6379> SELECT 0
+```
+127.0.0.1:6379> SELECT 0
 OK
 127.0.0.1:6379> SET testMove 'aaa'
 OK
