@@ -3,11 +3,11 @@
 ###SET : 设置key 对应的值为value
 语法 SET KEY VALUE [EX seconds][PX milliseconds]
 
-EX seconds 设置键的key的过期时间
-PX milliseconds :以毫秒的形式设置过期时间 SET key value PX milliseconds-PSETEX
-NX 只有键不存在的时候才可以设置成功SET key value NX -SETNX
-XX 只有key已经存在的时候才可以设置
-可以自由组合
+####EX seconds 设置键的key的过期时间
+####PX milliseconds :以毫秒的形式设置过期时间 SET key value PX milliseconds-PSETEX
+####NX 只有键不存在的时候才可以设置成功SET key value NX -SETNX
+####XX 只有key已经存在的时候才可以设置
+注意:可以自由组合
 
 ## #计数相关
 ####INCR KEY  对key中存储的数字加1
@@ -18,7 +18,8 @@ key如果不存在会初始化为0再进行INCR操作
 SET counter2 10
 INCR BY counter2 16
 
-```127.0.0.1:6379> INCR BY counter2 10
+```
+127.0.0.1:6379> INCR BY counter2 10
 (error) ERR wrong number of arguments for 'incr' command
 127.0.0.1:6379> INCRBY counter2 10
 (integer) 20
@@ -29,7 +30,7 @@ INCR BY counter2 16
 SET float1 4.2
 INCRBYFLOAT float1 3.4
 
-```(error) ERR syntax error
+```
 127.0.0.1:6379>  SET float1 4.2
 OK
 127.0.0.1:6379> INCRBYFLOAT float1 3.4
@@ -40,7 +41,8 @@ DECR counter2
 同名会覆盖
 ####DECRBY J将key中存储的数值减去指定的值
 
-```127.0.0.1:6379> DECR counter2
+```
+127.0.0.1:6379> DECR counter2
 (integer) 19
 127.0.0.1:6379> DECRBY counter2 12 
 (integer) 7
@@ -58,7 +60,8 @@ GET testStr
 LPUSH testList1 a b c;
 GET testList1
 
-```127.0.0.1:6379> SET testStr  = 'jankz'
+```
+127.0.0.1:6379> SET testStr  = 'jankz'
 (error) ERR syntax error
 127.0.0.1:6379> SET testStr 'jankz'
 OK
@@ -82,7 +85,8 @@ GETRANGE testStr2 -4 -2
 GETRANGE testStr2 0 1000
 GETRANGE testStr2 -4 2
 
-```127.0.0.1:6379> SET testStr2 'maiziedu'
+```
+127.0.0.1:6379> SET testStr2 'maiziedu'
 OK
 127.0.0.1:6379> GETRANGE testStr2 0 4 
 "maizi"
@@ -101,7 +105,8 @@ OK
  SET testStr3 'Queen' 
  GETSET testStr3 'King'
  
-```127.0.0.1:6379> SET testStr3 'King'
+```
+127.0.0.1:6379> SET testStr3 'King'
 OK
 127.0.0.1:6379> GET testStr3
 "King"
@@ -149,7 +154,8 @@ SETRANGE testStr10 6 'King'
 GETRANGE 返回字符串的一部分
 语法 GETRANGE key start end
 
-```127.0.0.1:6379> SET testStr9 'Hello Jankz'
+```
+127.0.0.1:6379> SET testStr9 'Hello Jankz'
 OK
 127.0.0.1:6379> GET testStr9
 "Hello Jankz"
@@ -184,7 +190,8 @@ PTTL
 APPEND testStr11 'edu'
 APPEND noExistsTest 'ajax'
 
-```127.0.0.1:6379> APPEND testStr11 'edu'
+```
+127.0.0.1:6379> APPEND testStr11 'edu'
 (integer) 7
 127.0.0.1:6379> 
 127.0.0.1:6379> GET testStr11
