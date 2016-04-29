@@ -113,10 +113,10 @@ save 60 10000
 ###SET : 设置key 对应的值为value
 语法 SET KEY VALUE [EX seconds][PX milliseconds]
 
-EX seconds 设置键的key的过期时间
-PX milliseconds :以毫秒的形式设置过期时间 SET key value PX milliseconds-PSETEX
-NX 只有键不存在的时候才可以设置成功SET key value NX -SETNX
-XX 只有key已经存在的时候才可以设置
+* EX seconds 设置键的key的过期时间
+* PX milliseconds :以毫秒的形式设置过期时间 SET key value PX milliseconds-PSETEX
+* NX 只有键不存在的时候才可以设置成功SET key value NX -SETNX
+* XX 只有key已经存在的时候才可以设置
 可以自由组合
 
 ## #计数相关
@@ -189,11 +189,12 @@ OK
 ```
 ###GETRANGE key start end
 下标从零开始
-GETRANGE testStr2 0 4 
-GETRANGE testStr2 0 -3
-GETRANGE testStr2 -4 -2
-GETRANGE testStr2 0 1000
-GETRANGE testStr2 -4 2
+
+* GETRANGE testStr2 0 4 
+* GETRANGE testStr2 0 -3
+* GETRANGE testStr2 -4 -2
+* GETRANGE testStr2 0 1000
+* GETRANGE testStr2 -4 2
 
 ```
 127.0.0.1:6379> SET testStr2 'maiziedu'
@@ -210,10 +211,11 @@ OK
 ""
 ```
  ##GETSET 设置指定key的值
- SET testStr3 'King' 
- GET testStr3
- SET testStr3 'Queen' 
- GETSET testStr3 'King'
+ 
+*  SET testStr3 'King' 
+*  GET testStr3
+*  SET testStr3 'Queen' 
+*  GETSET testStr3 'King'
  
 ```
 127.0.0.1:6379> SET testStr3 'King'
@@ -229,9 +231,7 @@ OK
 SET mycount =1
 INCR mycount
 INCR mycount
-
 INCR mycount
-
 INCR mycount
 GET mycount
 GETSET mycount 0
@@ -314,10 +314,10 @@ APPEND noExistsTest 'ajax'
 ##Hash类型
 
 ###HSET 将哈希表key中域field设置成指定value
-HSET key FIELD value
-HSET userInfo1 username 'king'
-HSET userInfo1 password '123456'
-HSET userInfo1 email 'jankz@jankz.com'
+* HSET key FIELD value
+* HSET userInfo1 username 'king'
+* HSET userInfo1 password '123456'
+* HSET userInfo1 email 'jankz@jankz.com'
 
 ```
 127.0.0.1:6379> APPEND noExistsTest 'ajax'
@@ -338,9 +338,9 @@ HSET userInfo1 email 'jankz@jankz.com'
 如果哈希表key中Field 存在 相当于重新赋值 成功返回0
  
 ###HGET key Field 
-HGET userInfo1 username
-HGET userInfo1 password
-HGET userInfo1 email
+* HGET userInfo1 username
+* HGET userInfo1 password
+* HGET userInfo1 email
 
 ```
 127.0.0.1:6379> HGET userInfo1 username
@@ -468,46 +468,33 @@ HDEL userInfo2 username password
 ##LIST
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #和key相关的命令
 ##KEYS 返回所有符合给定模式的key
-* : 匹配人一个字符
-? :匹配任意一个字符
-[]:匹配[]之间的一个字符,[a-z]
-\x:匹配特殊字符\?\*;
-keys *
-keys *o*
-keys t??
-keys ?o*
-keys a[a-z]*
+* \* : 匹配人一个字符
+* ? :匹配任意一个字符
+* []:匹配[]之间的一个字符,[a-z]
+* \x:匹配特殊字符\?\*;
+* keys *
+* keys *o*
+* keys t??
+* keys ?o*
+* keys a[a-z]*
 ##EXISTS 检测指定key是否存在
 语法:EXISTS key
 EXISTS one
 ###TYPE :返回key所存储的类型
 TYPE userInfo2
 
-```127.0.0.1:6379> TYPE userInfo2
+```
+127.0.0.1:6379> TYPE userInfo2
 hash
 ```
-不存在返回none
-string
-hash
-list
-set 
-zset
+* 不存在返回none
+* string
+* hash
+* list
+* set 
+* zset
 ##EXPIRE 设置key的过期时间
 语法: EXPIRE key seconds
 SET cache_page 'http://jzopen.com'
@@ -548,12 +535,12 @@ PEXPIREAT cache_page2  1430000000000
 如果key没有设置剩余时间 返回-1 如果key不存在 返回-2
 
 ##PERSIST:将一个带有过期时间的key变为永久
-语法:PERSIST key 
-SET cache 'testCache'
-EXPIRE cache 100
-TTL cache
-PERSIST cache
-TTL cache
+* 语法:PERSIST key 
+* SET cache 'testCache'
+* EXPIRE cache 100
+* TTL cache
+* PERSIST cache
+* TTL cache
 
 ```
 127.0.0.1:6379> SET cache 'testCache'
@@ -572,11 +559,13 @@ OK
 (integer) 0
 ```
 ##删除指定key
-DEL key
+* DEL key
+
 ```
 127.0.0.1:6379> DEL cache
 (integer) 1
 ```
+
 ##RANDOMKEY 随机的从当前数据库中返回一个key
 语法:RANDOMKEY
 
@@ -641,7 +630,6 @@ OK
 RESTORE testDump1 tt1
 RESTORE testDump1 0 "\x00\rthis is jankz\x06\x00\x9f\x7f\x8a\xee\x10\xb3a("
 
-
 ```
 127.0.0.1:6379> RESTORE testDump1 0 "\x00\rthis is jankz\x06\x00\x9f\x7f\x8a\xee\x10\xb3a("
 OK
@@ -656,7 +644,7 @@ SELECT 0
 MOVE testMove
 
 ```
-127.0.0.1:6379> SELECT 0
+s127.0.0.1:6379> SELECT 0
 OK
 127.0.0.1:6379> SET testMove 'aaa'
 OK
@@ -681,8 +669,8 @@ OK
 OK
 127.0.0.1:6379[1]> MOVE testMove 0
 (integer) 0
-
 ```
+
 注意:当移动一个不存在的key不会成功 返回失败
 当目录数据库中存在同名key的时候会移动失败
 
